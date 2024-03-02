@@ -1,3 +1,59 @@
+
+# Commands and Steps to create your local setup.
+
+1. Install latest version **Node.js** according to your Operating System.
+2. Add the **Node.js path** to your system's PATH Variable.
+3. Verify the node and npm is installed. `node -v & npm -v`
+
+## Clone the Code from Gitlab
+
+### Step 1 : Clone the Repository [Only Once]
+
+`git clone https://gitlab.com/app_store1/mern/switch-savvy.git`
+
+**NOTE:** You will be prompted for your gitlab username [Email] and password.
+
+### Step 2 : Open the switch-savvy folder in IDE.
+
+Developers can start their work whether it is for frontend or backend.
+
+### Step 3 : Open Terminal
+
+#### For Backend :  CD to backend folder
+
+
+Run `npm install` 
+
+Above command will download the dependencies and create the node_modules folder
+
+#### For Frontend :  CD to frontend folder
+
+Run `npm install` 
+
+Above command will download the dependencies and create the node_modules folder
+
+
+
+Updated till here. Ignore below Text
+===========================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
