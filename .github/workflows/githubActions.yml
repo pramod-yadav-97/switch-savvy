@@ -26,5 +26,4 @@ jobs:
 
       - name: Run Node App
         run: |
-          pwd
-          ls -a
+          npm start
