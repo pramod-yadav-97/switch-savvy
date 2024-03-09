@@ -22,5 +22,5 @@ jobs:
       - name: Build the App
         run: |
            cd backend
-           npm run build 
+           npm test
       
