@@ -39,8 +39,8 @@ jobs:
       working-directory: frontend
       run: npm test
 
-    - name: Run app
-      working-directory: frontend
-      run: |
-        npm install -g serve
-        timeout 1m serve -s build
+    # - name: Run app
+    #   working-directory: frontend
+    #   run: |
+    #     npm install -g serve
+    #     timeout 1m serve -s build
