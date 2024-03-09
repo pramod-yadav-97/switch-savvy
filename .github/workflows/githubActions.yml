@@ -26,4 +26,5 @@ jobs:
 
       - name: Run Node App
         run: |
+          cd backend
           npm start
