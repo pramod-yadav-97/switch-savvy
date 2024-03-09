@@ -7,20 +7,25 @@ on:
 
 jobs:
   backend:
-    name: Backend CI
+    name: Frontend CI
     runs-on: ubuntu-latest
     
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
+
+     - name: Build and Deploy React app to GitHub Pages
+       uses: omkartapale/react-deployment-gh-pages@v1.0.0
       
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16'
+      # - name: Set up React
+      #   uses: actions/setup-node@v2
+      #   with:
+      #     node-version: '16'
       
-      - name: Build the App
-        run: |
-           cd backend
-           npm start
+      # - name: Build the App
+      #   run: |
+      #      cd backend
+      #      npm start
+    
+            
       
