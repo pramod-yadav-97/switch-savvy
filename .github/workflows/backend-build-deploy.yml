@@ -3,8 +3,7 @@ run-name: Build, Test and Deploy Node Application
 on:
   push:
     branches:
-      - cicd
-      - dev
+      - "feat-*"
 jobs:
   Docker-Build-and-Push:
     runs-on: ubuntu-latest
