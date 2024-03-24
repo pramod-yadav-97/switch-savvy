@@ -8,7 +8,7 @@ on:
       - "feat-*"
 
 env:
-    ENV_VALUE: Dev
+    ENV_VALUE: "Dev"
 
 jobs:
   Getting-the-Environment:
@@ -17,12 +17,8 @@ jobs:
       - name: Setting up the Envionment Variable
       - run: |
           if [[ ${{ github.ref }} == 'refs/heads/prod' ]]; then
-            echo "Setting environment variables for dev environment"
-            echo "ENVIRONMENT=Prod" >> $GITHUB_ENV
             ENV_VALUE="Prod"
           elif [[ ${{ github.ref }} == 'refs/heads/pre-prod' ]]; then
-            echo "Setting environment variables for prod environment"
-            echo "ENVIRONMENT=prod" >> $GITHUB_ENV
             ENV_VALUE="Pre-Prod"
           else
             ENV_VALUE="Dev"
