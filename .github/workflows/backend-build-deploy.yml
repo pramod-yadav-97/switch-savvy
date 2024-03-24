@@ -1,0 +1,57 @@
+name: Automated Build & Deploy 
+run-name: Build, Test and Deploy Node Application
+on:
+  push:
+    branches:
+      - cicd
+      - dev
+jobs:
+  Docker-Build-and-Push:
+    runs-on: ubuntu-latest
+    steps:
+       - name: Checkout code
+         uses: actions/checkout@v2
+        
+       - name: Login to Docker Hub
+         uses: docker/login-action@v3
+         with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+       # Build the Docker image
+       - name: Build Docker Image
+         run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DEPLOY_IMAGE }}:latest backend/.
+
+      # Push the Docker image to DockerHub
+       - name: Push Docker Image
+         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DEPLOY_IMAGE }}:latest
+
+  Deploy:
+    needs:
+      - Docker-Build-and-Push
+    runs-on: self-hosted
+    steps:
+      # Check out the repository
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      # Log in to DockerHub
+      - name: Log in to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # Pull the latest image
+      - name: Pull Docker Image
+        run: docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DEPLOY_IMAGE }}:latest
+
+                  
+      # Stop and remove the existing container
+      # Replace 'your-container-name' with your actual container name
+      - name: Stop and Remove Existing Container
+        run: docker stop ${{ vars.CONTAINER_NAME }} || true && docker rm ${{ vars.CONTAINER_NAME }}|| true
+
+      # Run the new container with the latest image
+      - name: Run Docker Container  
+        run: docker run -d --name ${{ vars.CONTAINER_NAME }} -p 4000:4000 ${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DEPLOY_IMAGE }}:latest
