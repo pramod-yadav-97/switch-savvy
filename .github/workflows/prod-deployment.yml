@@ -5,12 +5,12 @@ run-name: ${{ github.ref }} - Build, Test and Deploy Node Application
 on:
   push:
     branches:
-      - "feat-*"
+      - Prod
 
 jobs:      
   Docker-Build-and-Push:
     runs-on: ubuntu-latest
-    environment: Dev
+    environment: Prod
     steps:
        - name: Checkout code
          uses: actions/checkout@v2
@@ -33,7 +33,7 @@ jobs:
     needs:
       - Docker-Build-and-Push
     runs-on: self-hosted
-    environment: Dev
+    environment: Prod
     steps:
       # Check out the repository
       - name: Checkout Repository
