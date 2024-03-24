@@ -1,12 +1,38 @@
 name:  Automated Build & Deploy 
 run-name: ${{ github.ref }} - Build, Test and Deploy Node Application
+
+
 on:
   push:
     branches:
       - "feat-*"
+
+env:
+    ENV_VALUE: Dev
+
 jobs:
+  Getting-the-Environment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setting up the Envionment Variable
+      - run: |
+          if [[ ${{ github.ref }} == 'refs/heads/prod' ]]; then
+            echo "Setting environment variables for dev environment"
+            echo "ENVIRONMENT=Prod" >> $GITHUB_ENV
+            ENV_VALUE="Prod"
+          elif [[ ${{ github.ref }} == 'refs/heads/pre-prod' ]]; then
+            echo "Setting environment variables for prod environment"
+            echo "ENVIRONMENT=prod" >> $GITHUB_ENV
+            ENV_VALUE="Pre-Prod"
+          else
+            ENV_VALUE="Dev"
+            exit 1
+          fi
+
+      
   Docker-Build-and-Push:
     runs-on: ubuntu-latest
+    environment: $ENV_VALUE
     steps:
        - name: Checkout code
          uses: actions/checkout@v2
@@ -29,6 +55,7 @@ jobs:
     needs:
       - Docker-Build-and-Push
     runs-on: self-hosted
+    environment: $ENV_VALUE
     steps:
       # Check out the repository
       - name: Checkout Repository
