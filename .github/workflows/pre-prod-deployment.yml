@@ -10,7 +10,7 @@ on:
 jobs:      
   Docker-Build-and-Push:
     runs-on: ubuntu-latest
-    environment: Dev
+    environment: Pre-Prod
     steps:
        - name: Checkout code
          uses: actions/checkout@v2
@@ -33,7 +33,7 @@ jobs:
     needs:
       - Docker-Build-and-Push
     runs-on: self-hosted
-    environment: Dev
+    environment: Pre-Prod
     steps:
       # Check out the repository
       - name: Checkout Repository
