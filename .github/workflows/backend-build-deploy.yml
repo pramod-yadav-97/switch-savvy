@@ -1,5 +1,5 @@
-name: ${{ github.actor }} Automated Build & Deploy 
-run-name: Build, Test and Deploy Node Application
+name:  Automated Build & Deploy 
+run-name: ${{ github.ref }} - Build, Test and Deploy Node Application
 on:
   push:
     branches:
