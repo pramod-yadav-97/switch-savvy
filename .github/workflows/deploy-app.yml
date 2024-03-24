@@ -3,7 +3,7 @@ run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on:
   push:
     branches:
-      - cicd
+      - main
 jobs:
   Testing-Connection:
     runs-on: self-hosted
