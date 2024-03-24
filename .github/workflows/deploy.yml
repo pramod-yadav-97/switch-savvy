@@ -21,7 +21,7 @@ jobs:
 
       # Pull the latest image
       - name: Pull Docker Image
-        run: docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DEPLOY_IMAGE }}:latest
+        run: docker pull ${{ secrets.DOCKERHUB_USERNAME }}/$DEPLOY_IMAGE:latest
 
       # Stop and remove the existing container
       # Replace 'your-container-name' with your actual container name
