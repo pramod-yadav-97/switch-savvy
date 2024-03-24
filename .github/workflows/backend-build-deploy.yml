@@ -20,11 +20,11 @@ jobs:
 
        # Build the Docker image
        - name: Build Docker Image
-         run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DEPLOY_IMAGE }}:latest backend/.
+         run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DEPLOY_IMAGE }}:${{ vars.CONTAINER_TAG }} backend/.
 
       # Push the Docker image to DockerHub
        - name: Push Docker Image
-         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DEPLOY_IMAGE }}:latest
+         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DEPLOY_IMAGE }}:${{ vars.CONTAINER_TAG }}
 
   Deploy:
     needs:
@@ -44,7 +44,7 @@ jobs:
 
       # Pull the latest image
       - name: Pull Docker Image
-        run: docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DEPLOY_IMAGE }}:latest
+        run: docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DEPLOY_IMAGE }}:${{ vars.CONTAINER_TAG }}
 
                   
       # Stop and remove the existing container
@@ -54,4 +54,4 @@ jobs:
 
       # Run the new container with the latest image
       - name: Run Docker Container  
-        run: docker run -d --name ${{ vars.CONTAINER_NAME }} -p 4000:4000 ${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DEPLOY_IMAGE }}:latest
+        run: docker run -d --name ${{ vars.CONTAINER_NAME }} -p ${{ vars.CONTAINER_PORT }}:4000 ${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DEPLOY_IMAGE }}:${{ vars.CONTAINER_TAG }}
