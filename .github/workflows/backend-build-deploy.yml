@@ -58,4 +58,4 @@ jobs:
 
       # Run the new container with the latest image
       - name: Run Docker Container  
-        run: docker run -d --name ${{ vars.CONTAINER_NAME }} -p ${{ vars.CONTAINER_PORT }}:4000 ${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DEPLOY_IMAGE }}:${{ vars.CONTAINER_TAG }}
+        run: docker run -d --name ${{ vars.CONTAINER_NAME }} -p 4000:${{ vars.CONTAINER_PORT }} ${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DEPLOY_IMAGE }}:${{ vars.CONTAINER_TAG }}
