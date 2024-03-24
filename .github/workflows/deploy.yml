@@ -21,13 +21,13 @@ jobs:
 
       # Pull the latest image
       - name: Pull Docker Image
-        run: docker pull ${{ secrets.DOCKERHUB_USERNAME }}/$DEPLOY_IMAGE:latest
+        run: docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DEPLOY_IMAGE }}:latest
 
       # Stop and remove the existing container
       # Replace 'your-container-name' with your actual container name
       - name: Stop and Remove Existing Container
-        run: docker stop ${{ env.CONTAINER_NAME }} || true && docker rm ${{ env.CONTAINER_NAME }}|| true
+        run: docker stop ${{ vars.CONTAINER_NAME }} || true && docker rm ${{ vars.CONTAINER_NAME }}|| true
 
       # Run the new container with the latest image
       - name: Run Docker Container  
-        run: docker run -d --name ${{ env.CONTAINER_NAME }} -p 4000:4000 ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DEPLOY_IMAGE }}:latest
+        run: docker run -d --name ${{ vars.CONTAINER_NAME }} -p 4000:4000 ${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DEPLOY_IMAGE }}:latest
