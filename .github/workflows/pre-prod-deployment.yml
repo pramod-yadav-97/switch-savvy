@@ -3,7 +3,8 @@ run-name: ${{ github.ref }} - Build, Test and Deploy Node Application
 
 
 on:
-  push:
+  
+  pull_request:
     branches:
       - Pre-Prod
 
