@@ -1,0 +1,33 @@
+name: Deploy App 
+run-name: ${{ github.actor }} triggered Deployment
+on:
+  push:
+    branches:
+      - cicd
+jobs:
+   Deploy:
+    runs-on: self-hosted
+    steps:
+      # Check out the repository
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      # Log in to DockerHub
+      - name: Log in to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # Pull the latest image
+      - name: Pull Docker Image
+        run: docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DEPLOY_IMAGE }}:latest
+
+      # Stop and remove the existing container
+      # Replace 'your-container-name' with your actual container name
+      - name: Stop and Remove Existing Container
+        run: docker stop ${{ env.CONTAINER_NAME }} || true && docker rm ${{ env.CONTAINER_NAME }}|| true
+
+      # Run the new container with the latest image
+      - name: Run Docker Container  
+        run: docker run -d --name ${{ env.CONTAINER_NAME }} -p 4000:4000 ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DEPLOY_IMAGE }}:latest
