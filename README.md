@@ -5,7 +5,7 @@
 2. Add the **Node.js path** to your system's PATH Variable.
 3. Verify the node and npm is installed. `node -v & npm -v`
 
-## Clone the Code from Gitlab
+## Clone the Code from Gitlab 
 
 ### Step 1 : Clone the Repository [Only Once]
 
@@ -36,13 +36,6 @@ Above command will download the dependencies and create the node_modules folder
 
 Updated till here. Ignore below Text
 ===========================================
-
-
-
-
-
-
-
 
 
 
