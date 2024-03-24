@@ -7,28 +7,10 @@ on:
     branches:
       - "feat-*"
 
-env:
-    ENV_VALUE: "Dev"
-
-jobs:
-  Getting-the-Environment:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Setting up the Envionment Variable
-      - run: |
-          if [[ ${{ github.ref }} == 'refs/heads/prod' ]]; then
-            ENV_VALUE="Prod"
-          elif [[ ${{ github.ref }} == 'refs/heads/pre-prod' ]]; then
-            ENV_VALUE="Pre-Prod"
-          else
-            ENV_VALUE="Dev"
-            exit 1
-          fi
-
-      
+jobs:      
   Docker-Build-and-Push:
     runs-on: ubuntu-latest
-    environment: $ENV_VALUE
+    environment: Dev
     steps:
        - name: Checkout code
          uses: actions/checkout@v2
@@ -51,7 +33,7 @@ jobs:
     needs:
       - Docker-Build-and-Push
     runs-on: self-hosted
-    environment: $ENV_VALUE
+    environment: Dev
     steps:
       # Check out the repository
       - name: Checkout Repository
